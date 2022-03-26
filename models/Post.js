@@ -2,7 +2,31 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 // create our Post model
-class Post extends Model {}
+class Post extends Model {
+    //previously this was in the post-routes.js file under posts/upvote PUT command. But it was complicated with two sequelize function in it, so now it is being moved here so that VOTES is part of POSTS
+    static upvote(body, models) {
+        return models.Vote.create({
+            user_id: body.user_id,
+            post_id: body.post_id
+          }).then(() => {
+            return Post.findOne({
+              where: {
+                id: body.post_id
+              },
+              attributes: [
+                'id',
+                'post_url',
+                'title',
+                'created_at',
+                [
+                  sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'),
+                  'vote_count'
+                ]
+              ]
+            });
+          });
+    }
+}
 
 // create fields/columns for Post model
 Post.init(
