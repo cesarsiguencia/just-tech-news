@@ -12,10 +12,10 @@ Post.belongsTo(User, {
     foreignKey: 'user_id',
 });
 
-//associations for Votes, don't know what this is
+//associations for Votes, 
 User.belongsToMany(Post, {
     through: Vote,
-    as: 'voted_posts',
+    as: 'voted_posts',  //naming the association
     foreignKey: 'user_id'
   });
   
