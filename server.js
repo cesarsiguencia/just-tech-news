@@ -8,8 +8,12 @@ const hbs = exphbs.create({});
 
 
 
+
 const app = express();
 const PORT = process.env.PORT || 3320;
+
+//CSS COMES BEFORE HANDLEBARS
+app.use(express.static(path.join(__dirname,'public')))
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
@@ -20,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 // turn on routes
 app.use(routes);
 
-app.use(express.static(path.join(__dirname,'public')))
+
 
 // turn on connection to db and server
 
