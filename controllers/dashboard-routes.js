@@ -1,9 +1,15 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
-const { Post, User, Comment } = require('../models')
+const withAuth = require('../utils/auth');
+const { Post, User, Comment } = require('../models');
 
-router.get('/', (req, res) => {
+//inserted withAuth in the arguement to require it
+router.get('/', withAuth, (req, res) => {
   Post.findAll({
+    where: {
+      // use the ID from the session
+      user_id: req.session.user_id
+    },
     attributes: [
       'id',
       'post_url',
@@ -26,30 +32,18 @@ router.get('/', (req, res) => {
       }
     ]
   })
-    .then(dbPostData => {
-      // pass a single post object into the homepage template
-      console.log(dbPostData)
-      const posts = dbPostData.map(post => post.get({ plain: true }));
-      res.render('homepage',{ 
-      posts,
-      loggedIn: req.session.loggedIn
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
+  .then(dbPostData => {
+    // serialize data before passing to template
+    const posts = dbPostData.map(post => post.get({ plain: true }));
+    res.render('dashboard', { posts, loggedIn: true });
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  });
+})
 
-router.get('/login', (req, res) => {
-  if(req.session.loggedIn){
-    res.redirect('/');
-    return;
-  }
-  res.render('login');
-});
-
-router.get('/post/:id', (req, res) => {
+router.get('/edit/:id', withAuth, (req, res) => {
   Post.findOne({
     where: {
       id: req.params.id
@@ -86,36 +80,15 @@ router.get('/post/:id', (req, res) => {
       const post = dbPostData.get({ plain: true });
 
       // pass data to template
-      res.render('single-post', {
+      res.render('edit-post', {
         post,
         //the bottom is condition that it will only generate for logged in users
-        loggedIn: req.session.loggedIn 
+        loggedIn: true
       });
     })
     .catch(err => {
-      console.log(err);
       res.status(500).json(err);
     });
-});
-
-// //Example of a 'HARDCODING' data post get route just to see if the route works,
-// router.get('/post/:id', (req, res) => {
-//   const post = {
-//     id: 1,
-//     post_url: 'https://handlebarsjs.com/guide/',
-//     title: 'Handlebars Docs',
-//     created_at: new Date(),
-//     vote_count: 10,
-//     comments: [{}, {}],
-//     user: {
-//       username: 'test_user'
-//     }
-//   };
-
-//   res.render('single-post', { post });
-// });
-
-// in the handlebars doc for this get request, everything would (post.id or post.post_url to get the attributes of the object)
-
+})
 
 module.exports = router;

@@ -3,7 +3,7 @@ const sequelize = require('../config/connection');
 
 // create our Post model
 class Post extends Model {
-    //previously this was in the post-routes.js file under posts/upvote PUT command. But it was complicated with two sequelize function in it, so now it is being moved here so that VOTES is part of POSTS
+    // previously this was in the post-routes.js file under posts/upvote PUT command. But it was complicated with two sequelize functions in it, so now it is being moved here so that VOTES is part of POSTS
     static upvote(body, models) {
         return models.Vote.create({
             user_id: body.user_id,
