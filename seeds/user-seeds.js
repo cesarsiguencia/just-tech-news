@@ -20,4 +20,6 @@ const userData = [
 
 const userSeeds = () => User.bulkCreate(userData);
 
-module.exports = userSeeds;
+module.exports = {
+    userSeeds
+} 
