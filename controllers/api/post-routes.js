@@ -32,26 +32,6 @@ router.get('/', (req, res) => {
 });
 
 
-router.get('/:id', (req, res) => {
-  Post.findOne({
-    where: {
-      id: req.params.id
-    },
-    attributes: ['id', 'post_url', 'title', 'created_at', [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']],
-    include: [
-      {
-        model: Comment,
-        attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
-        include: {
-          model: User,
-          attributes: ['username']
->>>>>>> feature/partials
-        }
-      },
-      {
-        model: User,
-        attributes: ['username']
-      }
     ]
   })
     .then(dbPostData => {
@@ -67,35 +47,6 @@ router.get('/:id', (req, res) => {
     });
 });
 
-<<<<<<< HEAD
-router.post('/',  (req, res) => {
-    // expects {title: 'Taskmaster goes public!', post_url: 'https://taskmaster.com/press', user_id: 1}
-    Post.create({
-        title: req.body.title,
-        post_url: req.body.post_url,
-        user_id: req.session.user_id
-    })
-        .then(dbPostData => res.json(dbPostData))
-        .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-        });
-});
-
-// PUT /api/posts/upvote/
-//WE ARE CREATING VOTES WHEN WE UPDATE A POST
-router.put('/upvote', withAuth, (req, res) => {
-  // make sure the session exists first, because if it doesn't exist, then the user is not logged in, so they can't vote. 
-  if (req.session) {
-    // pass session id along with all destructured properties on req.body
-    Post.upvote({ ...req.body, 
-      user_id: req.session.user_id }, { Vote, Comment, User })
-      .then(updatedVoteData => res.json(updatedVoteData))
-      .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-      });
-=======
 
 router.post('/', (req, res) => {
   Post.create({
@@ -121,7 +72,6 @@ router.put('/upvotes', (req, res) => {
       console.log(err);
       res.status(500).json(err);
     });
->>>>>>> feature/partials
   }
 });
 
@@ -138,41 +88,12 @@ router.put('/upvotes', (req, res) => {
 // });
 
 
-<<<<<<< HEAD
-router.put('/:id', withAuth, (req, res) => {
-    Post.update(
-      {
-        title: req.body.title
-      },
-      {
-        where: {
-          id: req.params.id
-        }
-      }
-    )
-      .then(dbPostData => {
-        if (!dbPostData) {
-          res.status(404).json({ message: 'No post found with this id' });
-          return;
-        }
-        res.json(dbPostData);
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-      });
-});
-
-router.delete('/:id', withAuth, (req, res) => {
-    Post.destroy({
-=======
 router.put('/:id', (req, res) => {
   Post.update(
     {
       title: req.body.title
     },
     {
->>>>>>> feature/partials
       where: {
         id: req.params.id
       }

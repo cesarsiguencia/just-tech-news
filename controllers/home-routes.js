@@ -3,8 +3,6 @@ const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models')
 
 router.get('/', (req, res) => {
-<<<<<<< HEAD
-=======
   console.log(req.session);
 
   // if(!req.session.loggedIn){
@@ -12,7 +10,6 @@ router.get('/', (req, res) => {
   //   return;
   // }
   
->>>>>>> feature/partials
   Post.findAll({
     attributes: [
       'id',

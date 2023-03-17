@@ -13,14 +13,8 @@ router.get('/', (req, res) => {
     });
 });
 
-<<<<<<< HEAD
-router.post('/', withAuth, (req, res) => {
-  // check the session
-  if (req.session) {
-=======
 router.post('/', (req, res) => {
   if(req.session){
->>>>>>> feature/partials
     Comment.create({
       comment_text: req.body.comment_text,
       user_id: req.session.user_id,
@@ -34,25 +28,6 @@ router.post('/', (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-router.delete('/:id', withAuth, (req, res) => {
-    Comment.destroy({
-        where: {
-          id: req.params.id
-        }
-      })
-        .then(dbCommentData => {
-          if (!dbCommentData) {
-            res.status(404).json({ message: 'No post found with this id' });
-            return;
-          }
-          res.json(dbPostData);
-        })
-        .catch(err => {
-          console.log(err);
-          res.status(500).json(err);
-        });
-=======
 router.delete('/:id', (req, res) => {
   Comment.destroy({
     where: {
@@ -70,7 +45,6 @@ router.delete('/:id', (req, res) => {
       console.log(err);
       res.status(500).json(err);
     });
->>>>>>> feature/partials
 });
 
 module.exports = router;

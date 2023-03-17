@@ -48,7 +48,6 @@ class Post extends Model {
       });
     });
   }
->>>>>>> feature/partials
 }
 
 Post.init(
