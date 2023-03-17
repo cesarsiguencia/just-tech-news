@@ -4,8 +4,14 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+<<<<<<< HEAD
     "test": "jest",
     "start": "node server.js"
+=======
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "seeds" : "node seeds/index.js"
+>>>>>>> feature/single-post
   },
   "repository": {
     "type": "git",
