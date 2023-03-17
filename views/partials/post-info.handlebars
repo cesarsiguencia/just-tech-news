@@ -1,18 +1,16 @@
 {{!-- these helpers have two paramaters, one word and the number parameter --}}
 
-{{!-- <article class="post">
+<article class="post">
   <div class="title">
-    <a href="{{ post_url}}" target="_blank">{{title}}</a>
+    <a href="{{post_url}}" target="_blank">{{title}}</a>
     <span>({{format_url post_url}})</span>
   </div>
   <div class="meta">
-    {{vote_count}} {{format_plural "point" vote_count}} by {{user.username}} on
-    {{format_date created_at}}
+    {{vote_count}} {{format_plural 'point' vote_count}} by {{user.username}} on {{format_date created_at}}
     |
-    <a href="/post/{{id}}">{{format_plural "comment" comments.length}}</a>
+    <a href="/post/{{id}}">{{comments.length}} {{format_plural 'comment' comments.length}}</a>
   </div>
-</article> --}}
-
+</article>
 
 
 {{!-- OLD FORMAT --}}
@@ -30,7 +28,7 @@
   </div>
 </article> --}}
 
- <article class="post">
+ {{!-- <article class="post">
       <div class="title">
         <a href="{{post.post_url}}" target="_blank">{{post.title}}</a>
         <span>({{post.post_url}})</span>
@@ -41,4 +39,4 @@
         |
         <a href="/post/{{post.id}}">{{post.comments.length}} comment(s)</a>
       </div>
-</article>
+</article> --}}

@@ -11,7 +11,7 @@
   </div>
 </article> --}}
 
-{{> post-info post }}
+{{> post-info post }} 
 
 {{#if loggedIn}}
 <form class="comment-form">
@@ -27,17 +27,23 @@
 {{/if}}
 
 
-<div class="comments">
+{{> comments post.comments }}
+
+{{!-- ==============
+alternative method without using THIS
+<div>
   {{#each post.comments}}
-  <section class="comment">
-    <div class="meta">
-      {{user.username}} on {{created_at}}
-    </div>
-    <div class="text">
-      {{comment_text}}
-    </div>
-  </section>
+
+    {{> comments}}
+
   {{/each}}
+</div>
+============== --}}
+
+
+
+
+
 </div>
 
 {{#if loggedIn}}

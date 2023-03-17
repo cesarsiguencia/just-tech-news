@@ -1,12 +1,11 @@
 const helpers = require('./utils/helpers')
-const path = require('path');
 const path = require('path'); //for css to work
 const express = require('express');
 const routes = require('./controllers/');
 const sequelize = require('./config/connection');
 
 const exphbs = require('express-handlebars'); // to use handlebars in express
-const hbs = exphbs.create({}); // 
+const hbs = exphbs.create({helpers}); // 
 
 const app = express();
 
