@@ -7,7 +7,7 @@ async function upvoteClickHandler(event) {
       ];
     
     console.log(id);
-    const response = await fetch('/api/posts/upvote', {
+    const response = await fetch('/api/posts/upvotes', {
         method: 'PUT',
         body: JSON.stringify({
           post_id: id
@@ -19,6 +19,7 @@ async function upvoteClickHandler(event) {
     
     if (response.ok) {
     document.location.reload();
+    console.log("good")
     } else {
     alert(response.statusText);
     }

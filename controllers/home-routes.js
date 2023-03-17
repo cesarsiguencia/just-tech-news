@@ -3,6 +3,16 @@ const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models')
 
 router.get('/', (req, res) => {
+<<<<<<< HEAD
+=======
+  console.log(req.session);
+
+  // if(!req.session.loggedIn){
+  //   res.redirect('/login');
+  //   return;
+  // }
+  
+>>>>>>> feature/partials
   Post.findAll({
     attributes: [
       'id',
