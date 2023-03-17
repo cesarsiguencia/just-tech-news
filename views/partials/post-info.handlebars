@@ -1,6 +1,6 @@
 {{!-- these helpers have two paramaters, one word and the number parameter --}}
 
-<article class="post">
+{{!-- <article class="post">
   <div class="title">
     <a href="{{ post_url}}" target="_blank">{{title}}</a>
     <span>({{format_url post_url}})</span>
@@ -11,7 +11,7 @@
     |
     <a href="/post/{{id}}">{{format_plural "comment" comments.length}}</a>
   </div>
-</article>
+</article> --}}
 
 
 
@@ -29,3 +29,16 @@
     <a href="/post/{{id}}">{{comments.length}} comment(s)</a>
   </div>
 </article> --}}
+
+ <article class="post">
+      <div class="title">
+        <a href="{{post.post_url}}" target="_blank">{{post.title}}</a>
+        <span>({{post.post_url}})</span>
+      </div>
+      <div class="meta">
+        {{post.vote_count}} point(s) by {{post.user.username}} on
+        {{post.created_at}}
+        |
+        <a href="/post/{{post.id}}">{{post.comments.length}} comment(s)</a>
+      </div>
+</article>
