@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
 });
 
 
-router.get('/:id', (req, res) => {
+router.get('/:id',withAuth, (req, res) => {
   Post.findOne({
     where: {
       id: req.params.id
@@ -67,11 +67,11 @@ router.get('/:id', (req, res) => {
 });
 
 
-router.post('/', (req, res) => {
+router.post('/', withAuth, (req, res) => {
   Post.create({
     title: req.body.title,
     post_url: req.body.post_url,
-    user_id: req.body.user_id
+    user_id: req.session.user_id
   })
     .then(dbPostData => res.json(dbPostData))
     .catch(err => {
@@ -81,7 +81,7 @@ router.post('/', (req, res) => {
 });
 
 
-router.put('/upvotes', (req, res) => {
+router.put('/upvotes', withAuth, (req, res) => {
 
     console.log('fetch success')
   if(req.session){
@@ -107,7 +107,7 @@ router.put('/upvotes', (req, res) => {
 // });
 
 
-router.put('/:id', (req, res) => {
+router.put('/:id', withAuth, (req, res) => {
   Post.update(
     {
       title: req.body.title
@@ -132,7 +132,7 @@ router.put('/:id', (req, res) => {
 });
 
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', withAuth, (req, res) => {
   Post.destroy({
     where: {
       id: req.params.id
