@@ -10,6 +10,7 @@ User.hasMany(Post, {
 
 Post.belongsTo(User, {
   foreignKey: 'user_id',
+  onDelete: 'cascade'
 });
 
 //associations for Votes, 
@@ -27,11 +28,13 @@ Post.belongsToMany(User, {
 
 //other associations needs
 Vote.belongsTo(User, {
-  foreignKey: 'user_id'
+  foreignKey: 'user_id',
+  onDelete: 'cascade'
 });
 
 Vote.belongsTo(Post, {
-  foreignKey: 'post_id'
+  foreignKey: 'post_id',
+  onDelete: 'cascade'
 });
 
 User.hasMany(Vote, {
@@ -44,12 +47,13 @@ Post.hasMany(Vote, {
 
 //comment associations
 Comment.belongsTo(User, {
-  foreignKey: 'user_id'
+  foreignKey: 'user_id',
+  onDelete: "cascade"
 });
 
 Comment.belongsTo(Post, {
   foreignKey: 'post_id',
-
+  onDelete: "cascade"
 });
 
 User.hasMany(Comment, {
