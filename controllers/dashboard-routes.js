@@ -3,7 +3,6 @@ const sequelize = require('../config/connection');
 const withAuth = require('../utils/auth');
 const { Post, User, Comment } = require('../models');
 
-//inserted withAuth in the arguement to require it
 router.get('/', withAuth, (req, res) => {
   Post.findAll({
     where: {
@@ -38,7 +37,6 @@ router.get('/', withAuth, (req, res) => {
     res.render('dashboard', { posts, loggedIn: true });
   })
   .catch(err => {
-    console.log(err);
     res.status(500).json(err);
   });
 })

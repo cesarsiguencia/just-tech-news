@@ -25,7 +25,6 @@ router.get('/', withAuth, (req, res) => {
     ]
   }).then(dbPostData => res.json(dbPostData))
     .catch(err => {
-      console.log(err);
       res.status(500).json(err);
     });
 
@@ -61,7 +60,6 @@ router.get('/:id', withAuth, (req, res) => {
       res.json(dbPostData);
     })
     .catch(err => {
-      console.log(err);
       res.status(500).json(err);
     });
 });
@@ -75,36 +73,20 @@ router.post('/', withAuth, (req, res) => {
   })
     .then(dbPostData => res.json(dbPostData))
     .catch(err => {
-      console.log(err);
       res.status(500).json(err);
     });
 });
 
 
 router.put('/upvotes', withAuth, (req, res) => {
-
-    console.log('fetch success')
   if(req.session){
     Post.upvote({...req.body, user_id: req.session.user_id}, { Vote, Comment, User})
     .then(updatedPostData => res.json(updatedPostData))
     .catch(err => {
-      console.log(err);
       res.status(500).json(err);
     });
   }
 });
-
-// router.put('/upvotes', (req, res) => {
-
-
-
-//   Post.upvote(req.body, { Vote })
-//     .then(updatedPostData => res.json(updatedPostData))
-//     .catch(err => {
-//       console.log(err);
-//       res.status(400).json(err);
-//     });
-// });
 
 
 router.put('/:id', withAuth, (req, res) => {
@@ -126,7 +108,6 @@ router.put('/:id', withAuth, (req, res) => {
       res.json(dbPostData);
     })
     .catch(err => {
-      console.log(err);
       res.status(500).json(err);
     });
 });
@@ -146,7 +127,6 @@ router.delete('/:id', withAuth, (req, res) => {
       res.json(dbPostData);
     })
     .catch(err => {
-      console.log(err);
       res.status(500).json(err);
     });
 });

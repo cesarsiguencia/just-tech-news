@@ -19,23 +19,11 @@ const userData = [
     },
 ]
 
-console.log(userData, 1)
-
 userData.map(async newUserData => {
-    
-
-    console.log(newUserData.password)
     return newUserData.password = await bcrypt.hash(newUserData.password, 10)
-    
 })
 
-console.log(userData, 2)
-
 const userSeeds = () => User.bulkCreate(userData);
-
-
-
-
 
 module.exports = {
     userSeeds
