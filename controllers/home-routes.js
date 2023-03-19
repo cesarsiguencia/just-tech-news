@@ -28,7 +28,6 @@ router.get('/', (req, res) => {
     ]
   })
     .then(dbPostData => {
-      // pass a single post object into the homepage template
       const posts = dbPostData.map(post => post.get({ plain: true }));
       res.render('homepage',{ 
       posts,
@@ -80,14 +79,10 @@ router.get('/post/:id', (req, res) => {
         res.status(404).json({ message: 'No post found with this id' });
         return;
       }
-
-      // serialize the data
       const post = dbPostData.get({ plain: true });
 
-      // pass data to template
       res.render('single-post', {
         post,
-        //the bottom is condition that it will only generate for logged in users
         loggedIn: req.session.loggedIn 
       });
     })
@@ -95,25 +90,6 @@ router.get('/post/:id', (req, res) => {
       res.status(500).json(err);
     });
 });
-
-// //Example of a 'HARDCODING' data post get route just to see if the route works,
-// router.get('/post/:id', (req, res) => {
-//   const post = {
-//     id: 1,
-//     post_url: 'https://handlebarsjs.com/guide/',
-//     title: 'Handlebars Docs',
-//     created_at: new Date(),
-//     vote_count: 10,
-//     comments: [{}, {}],
-//     user: {
-//       username: 'test_user'
-//     }
-//   };
-
-//   res.render('single-post', { post });
-// });
-
-// in the handlebars doc for this get request, everything would (post.id or post.post_url to get the attributes of the object)
 
 
 module.exports = router;

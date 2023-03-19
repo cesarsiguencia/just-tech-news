@@ -60,7 +60,7 @@ router.post('/', (req, res) => {
     username: req.body.username,
     email: req.body.email,
     password: req.body.password
-  }) //LINKS MAKING A USER TO STARTING A SESSION USING EXPRESS.SESSION
+  })
     .then(dbUserData => {
     req.session.save(() => {
       req.session.user_id = dbUserData.id;

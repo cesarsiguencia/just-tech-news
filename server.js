@@ -1,15 +1,13 @@
 const helpers = require('./utils/helpers')
-const path = require('path'); //for css to work
+const path = require('path'); 
 const express = require('express');
 const routes = require('./controllers/');
 const sequelize = require('./config/connection');
 
-const exphbs = require('express-handlebars'); // to use handlebars in express
+const exphbs = require('express-handlebars');
 const hbs = exphbs.create({helpers}); // 
 
 const app = express();
-
-
 
 const PORT = process.env.PORT || 3320;
 
@@ -18,51 +16,21 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const sess = {
   secret: 'random string of characters and numbers',
   cookie: {},
-  resave: false, //forces session to be saved to sessionStore, just keep false 
-  saveUninitialized: true, //new sessions will be saved to part of Store
-  store: new SequelizeStore({ //initialize sequelize.Store, connect with db, and save session to database
+  resave: false,
+  saveUninitialized: true, 
+  store: new SequelizeStore({
     db: sequelize
   })
 };
 
 app.use(session(sess));
-
-//CSS COMES BEFORE HANDLEBARS
-app.use(express.static(path.join(__dirname, 'public'))) //middleware that takes all content of the 'public' folder and serve them as static assets
-
-app.engine('handlebars', hbs.engine); // more handlebars stuff
-app.set('view engine', 'handlebars'); // more handlebars stuff
-
+app.use(express.static(path.join(__dirname, 'public'))) 
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars'); 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use(routes);
-
-
-
-// turn on connection to db and server
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log('Now listening on PORT 3320'));
 });
-
-
-
-// THIS WAS THE SERVER PAGE BEFORE INCLUDING THE WHOLE MVC MODEL, SO JUST THE BACK END
-
-// const express = require('express');
-// const routes = require('./routes');
-// const sequelize = require('./config/connection');
-
-// const app = express();
-// const PORT = process.env.PORT || 3320;
-
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-
-// app.use(routes);
-
-
-// sequelize.sync({ force: false }).then(() => {
-//   app.listen(PORT, () => console.log('Now listening on PORT 3320'));
-// });
