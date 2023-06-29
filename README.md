@@ -46,7 +46,7 @@ To create your own copy of this application instead of using the link, please ch
 - Votes
 
 ### Link
-https://just-tech-news-by-cs.herokuapp.com/ 
+just-tech-news-production.up.railway.app
 
 ### Installation with Accompanying Data (Seeds)
 1) Git clone or download the application and load on VSCode
